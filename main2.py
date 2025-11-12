@@ -26,7 +26,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 conn_str = (
     "DRIVER={ODBC Driver 17 for SQL Server};"
-    f"SERVER={DB_SERVER};"
+    f"SERVER={DB_SERVER},1433;"
     f"DATABASE={DB_NAME};"
     f"UID={DB_USER};"
     f"PWD={DB_PASSWORD}"
@@ -56,6 +56,7 @@ def fetch_data():
     finally:
         if conn:
             conn.close()
+
 
 
 
