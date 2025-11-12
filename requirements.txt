@@ -4,4 +4,5 @@ pydantic
 python-dotenv
 numpy
 pandas
+pyodbc
 
