@@ -12,6 +12,7 @@ RUN apt-get update && \
         apt-transport-https \
         unixodbc-dev \
         build-essential \
+        ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Add Microsoft repository and install ODBC 17
@@ -19,7 +20,8 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
     && mv microsoft.gpg /etc/apt/trusted.gpg.d/ \
     && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
-    && ACCEPT_EULA=Y apt-get install -y msodbcsql17
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql17 \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
@@ -32,7 +34,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy app code
 COPY . .
 
-# Expose port for Render
+# Expose port for Render / Docker
+EXPOSE 10000
 ENV PORT 10000
 
 # Command to run FastAPI app
